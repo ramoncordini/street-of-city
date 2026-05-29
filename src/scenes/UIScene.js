@@ -14,7 +14,7 @@ export default class UIScene extends Phaser.Scene {
   createInteractionPrompt() {
     const centerX = this.scale.width / 2;
 
-    this.promptContainer = this.add.container(centerX, this.scale.height - 86);
+    this.promptContainer = this.add.container(centerX, this.scale.height - 174);
     this.promptContainer.setScrollFactor(0);
     this.promptContainer.setDepth(20);
 

@@ -5,10 +5,9 @@ import NetworkManager from '../network/NetworkManager.js';
 
 const CITY_WIDTH = 4300;
 const PLAYER_SPEED = 230;
-const GROUND_Y = 420;
-const PLAYER_ROAD_Y = GROUND_Y + 108;
-const ROAD_TOP_Y = GROUND_Y + 8;
-const ROAD_BOTTOM_Y = GROUND_Y + 108;
+const ROAD_BOTTOM_MARGIN = 12;
+const ROAD_HEIGHT = 148;
+const PLAYER_BOTTOM_MARGIN = 12;
 
 const BUILDING_DATA = [
   {
@@ -102,11 +101,11 @@ export default class GameScene extends Phaser.Scene {
   create() {
     this.worldWidth = CITY_WIDTH;
     this.playerSpeed = PLAYER_SPEED;
-    this.groundY = GROUND_Y;
-    this.playerRoadY = PLAYER_ROAD_Y;
+    this.groundY = this.scale.height - ROAD_BOTTOM_MARGIN - ROAD_HEIGHT;
+    this.playerRoadY = this.scale.height - PLAYER_BOTTOM_MARGIN;
     this.roadBounds = {
-      top: ROAD_TOP_Y,
-      bottom: ROAD_BOTTOM_Y
+      top: this.groundY + 8,
+      bottom: this.playerRoadY
     };
     this.lastInteractedBuilding = null;
     this.remotePlayers = new Map();
@@ -132,7 +131,7 @@ export default class GameScene extends Phaser.Scene {
     this.player = new Player(this, 120, this.playerRoadY, this.playerSpeed, this.roadBounds, this.profile);
     this.player.sprite.setCollideWorldBounds(true);
 
-    this.cameras.main.startFollow(this.player.sprite, true, 0.08, 0.08, -160, 80);
+    this.cameras.main.startFollow(this.player.sprite, true, 0.08, 0.08, -160, 0);
     this.cameras.main.setDeadzone(160, 80);
 
     this.interactWithPlayerKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);

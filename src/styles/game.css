@@ -50,16 +50,17 @@ body {
 
 .game-topbar {
   position: fixed;
-  top: env(safe-area-inset-top, 0);
-  left: 0;
-  right: 0;
+  top: max(8px, env(safe-area-inset-top));
+  left: max(10px, env(safe-area-inset-left));
+  right: max(10px, env(safe-area-inset-right));
   z-index: 20;
   display: flex;
   align-items: center;
   gap: 12px;
-  min-height: 44px;
-  padding: 8px max(14px, env(safe-area-inset-left)) 8px max(14px, env(safe-area-inset-left));
-  border-bottom: 1px solid var(--bar-border);
+  min-height: 40px;
+  padding: 8px 14px;
+  border: 1px solid var(--bar-border);
+  border-radius: 8px;
   background: var(--bar-bg);
   color: #ffffff;
   font-size: 14px;
@@ -291,7 +292,7 @@ body {
 
   .game-topbar {
     gap: 8px;
-    min-height: 38px;
+    min-height: 34px;
     font-size: 12px;
   }
 
@@ -312,7 +313,7 @@ body {
 
 @media (max-height: 430px) {
   .game-topbar {
-    min-height: 34px;
+    min-height: 32px;
     padding-top: 6px;
     padding-bottom: 6px;
   }
