@@ -89,7 +89,48 @@ export default class UIScene extends Phaser.Scene {
       this.closeButtonText
     ];
 
+    this.layoutModal();
+    this.scale.on('resize', () => this.layoutModal());
     this.closeLocationModal();
+  }
+
+  layoutModal() {
+    const { width, height } = this.scale;
+    const panelWidth = Math.min(width - 32, 560);
+    const panelHeight = Math.min(height - 84, 300);
+    const safePanelHeight = Math.max(panelHeight, 214);
+    const centerX = width / 2;
+    const centerY = height / 2 + 10;
+    const compact = height < 460 || width < 720;
+    const titleSize = compact ? '24px' : '34px';
+    const descriptionSize = compact ? '16px' : '20px';
+
+    this.modalOverlay.setPosition(0, 0).setSize(width, height).setDisplaySize(width, height);
+    this.modalPanel
+      .setPosition(centerX, centerY)
+      .setSize(panelWidth, safePanelHeight)
+      .setDisplaySize(panelWidth, safePanelHeight);
+
+    this.modalTitle
+      .setPosition(centerX, centerY - safePanelHeight / 2 + 42)
+      .setFontSize(titleSize)
+      .setWordWrapWidth(panelWidth - 48);
+
+    this.modalDescription
+      .setPosition(centerX, centerY - 10)
+      .setFontSize(descriptionSize)
+      .setWordWrapWidth(panelWidth - 56);
+
+    this.closeButton
+      .setPosition(centerX, centerY + safePanelHeight / 2 - 42)
+      .setSize(150, 46)
+      .setDisplaySize(150, 46);
+
+    this.closeButtonText.setPosition(centerX, centerY + safePanelHeight / 2 - 42);
+
+    if (this.promptContainer) {
+      this.promptContainer.setPosition(centerX, height - 174);
+    }
   }
 
   registerEvents() {

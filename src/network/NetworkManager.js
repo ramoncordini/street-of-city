@@ -28,6 +28,7 @@ export default class NetworkManager {
         gender: this.profile.gender,
         x: initialPosition.x,
         y: initialPosition.y,
+        laneRatio: initialPosition.laneRatio,
         flipX: false
       });
     });

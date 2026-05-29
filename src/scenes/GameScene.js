@@ -171,7 +171,7 @@ export default class GameScene extends Phaser.Scene {
       }
     });
 
-    this.network.connect(this.player.getFeetPosition());
+    this.network.connect(this.player.getNetworkState());
   }
 
   addRemotePlayer(playerData, localId) {

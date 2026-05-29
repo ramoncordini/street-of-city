@@ -7,18 +7,18 @@ export default class RemotePlayer {
     this.texturePrefix = playerData.gender === 'female' ? 'player-female' : 'player';
     this.walkAnimationKey = `${this.texturePrefix}-walk`;
     this.targetX = playerData.x;
-    this.targetY = playerData.y;
+    this.targetY = this.resolveY(playerData);
 
-    this.shadow = scene.add.ellipse(playerData.x, playerData.y - 2, 34, 10, 0x17202a, 0.22);
+    this.shadow = scene.add.ellipse(playerData.x, this.targetY - 2, 34, 10, 0x17202a, 0.22);
     this.shadow.setDepth(19);
 
-    this.sprite = scene.add.sprite(playerData.x, playerData.y, `${this.texturePrefix}-idle`);
+    this.sprite = scene.add.sprite(playerData.x, this.targetY, `${this.texturePrefix}-idle`);
     this.sprite.setOrigin(0.5, 1);
     this.sprite.setDepth(20);
     this.sprite.setTint(Number(playerData.color));
     this.sprite.setFlipX(Boolean(playerData.flipX));
 
-    this.label = scene.add.text(playerData.x, playerData.y - 58, playerData.name, {
+    this.label = scene.add.text(playerData.x, this.targetY - 58, playerData.name, {
       fontFamily: 'Arial, sans-serif',
       fontSize: '14px',
       color: '#ffffff',
@@ -26,7 +26,7 @@ export default class RemotePlayer {
       padding: { x: 6, y: 3 }
     }).setOrigin(0.5).setDepth(30);
 
-    this.message = scene.add.text(playerData.x, playerData.y - 86, '', {
+    this.message = scene.add.text(playerData.x, this.targetY - 86, '', {
       fontFamily: 'Arial, sans-serif',
       fontSize: '14px',
       color: '#213d35',
@@ -37,7 +37,7 @@ export default class RemotePlayer {
 
   updateFromNetwork(playerData) {
     this.targetX = playerData.x;
-    this.targetY = playerData.y;
+    this.targetY = this.resolveY(playerData);
     this.sprite.setFlipX(Boolean(playerData.flipX));
 
     if (playerData.moving) {
@@ -79,5 +79,14 @@ export default class RemotePlayer {
     this.sprite.destroy();
     this.label.destroy();
     this.message.destroy();
+  }
+
+  resolveY(playerData) {
+    if (typeof playerData.laneRatio === 'number') {
+      const { top, bottom } = this.scene.roadBounds;
+      return Phaser.Math.Linear(top, bottom, Phaser.Math.Clamp(playerData.laneRatio, 0, 1));
+    }
+
+    return playerData.y;
   }
 }

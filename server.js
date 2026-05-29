@@ -93,6 +93,7 @@ function handleMessage(id, message) {
       gender: sanitizeGender(message.payload.gender),
       x: Number(message.payload.x) || 120,
       y: Number(message.payload.y) || 528,
+      laneRatio: sanitizeLaneRatio(message.payload.laneRatio),
       flipX: false,
       moving: false
     };
@@ -114,6 +115,7 @@ function handleMessage(id, message) {
 
     player.x = Number(message.payload.x) || player.x;
     player.y = Number(message.payload.y) || player.y;
+    player.laneRatio = sanitizeLaneRatio(message.payload.laneRatio ?? player.laneRatio);
     player.flipX = Boolean(message.payload.flipX);
     player.moving = Boolean(message.payload.moving);
     player.gender = sanitizeGender(message.payload.gender || player.gender);
@@ -163,6 +165,16 @@ function sanitizeColor(color) {
 
 function sanitizeGender(gender) {
   return gender === 'female' ? 'female' : 'male';
+}
+
+function sanitizeLaneRatio(laneRatio) {
+  const value = Number(laneRatio);
+
+  if (!Number.isFinite(value)) {
+    return 1;
+  }
+
+  return Math.max(0, Math.min(1, value));
 }
 
 function broadcast(type, payload) {

@@ -126,10 +126,21 @@ export default class Player {
     return {
       x: this.sprite.x,
       y: this.sprite.y,
+      laneRatio: this.getLaneRatio(),
       flipX: this.sprite.flipX,
       moving: this.isMoving,
       gender: this.profile.gender
     };
+  }
+
+  getLaneRatio() {
+    const roadHeight = this.movementBounds.bottom - this.movementBounds.top;
+
+    if (roadHeight <= 0) {
+      return 1;
+    }
+
+    return Phaser.Math.Clamp((this.sprite.y - this.movementBounds.top) / roadHeight, 0, 1);
   }
 
   showMessage(text) {
