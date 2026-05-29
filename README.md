@@ -2,6 +2,16 @@
 
 MVP de um site gamificado em Phaser 3 com visual 2D side-scrolling, personagem controlavel, criacao de personagem, multiplayer, camera suave e construcoes interativas.
 
+## Teste online
+
+Versao publicada para testes:
+
+```text
+https://street-of-city.onrender.com/
+```
+
+No plano gratuito do Render, o primeiro acesso pode demorar alguns segundos se o servico estiver inativo.
+
 ## Como executar
 
 Use o servidor Node incluido na raiz do projeto:
