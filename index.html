@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cidade 2D Explorer</title>
+    <link rel="stylesheet" href="./src/styles/game.css" />
+  </head>
+  <body>
+    <main class="game-shell">
+      <header class="game-header" aria-label="Informacoes do jogo">
+        <div>
+          <h1>Cidade 2D Explorer</h1>
+          <p>Explore uma cidade turistica brasileira em pixel art.</p>
+        </div>
+        <div class="controls-hint">
+          <span>Setas: mover</span>
+          <span>Porta: interagir</span>
+          <span>Espaco: cumprimentar</span>
+        </div>
+      </header>
+
+      <section class="game-stage" aria-label="Area do jogo">
+        <div id="game-container"></div>
+      </section>
+    </main>
+
+    <section id="character-screen" class="character-screen" aria-label="Criacao de personagem">
+      <form id="character-form" class="character-card">
+        <h2>Crie seu personagem</h2>
+        <label for="player-name">Nome</label>
+        <input id="player-name" type="text" name="playerName" maxlength="16" autocomplete="off" placeholder="Seu nome" required />
+
+        <p>Sexo</p>
+        <div class="choice-row" role="radiogroup" aria-label="Sexo do personagem">
+          <label>
+            <input type="radio" name="playerGender" value="male" checked />
+            <span>Masculino</span>
+          </label>
+          <label>
+            <input type="radio" name="playerGender" value="female" />
+            <span>Feminino</span>
+          </label>
+        </div>
+
+        <p>Cor</p>
+        <div class="color-grid" role="radiogroup" aria-label="Cor do personagem">
+          <label>
+            <input type="radio" name="playerColor" value="0x3a86ff" checked />
+            <span style="--swatch: #3a86ff"></span>
+          </label>
+          <label>
+            <input type="radio" name="playerColor" value="0xe76f51" />
+            <span style="--swatch: #e76f51"></span>
+          </label>
+          <label>
+            <input type="radio" name="playerColor" value="0x2a9d8f" />
+            <span style="--swatch: #2a9d8f"></span>
+          </label>
+          <label>
+            <input type="radio" name="playerColor" value="0x9c89b8" />
+            <span style="--swatch: #9c89b8"></span>
+          </label>
+        </div>
+
+        <button type="submit">Entrar na cidade</button>
+      </form>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/phaser@3.80.1/dist/phaser.min.js"></script>
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>

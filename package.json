@@ -1,0 +1,12 @@
+{
+  "name": "cidade-2d-explorer",
+  "version": "1.0.0",
+  "private": true,
+  "description": "MVP multiplayer em Phaser 3 para explorar uma cidade 2D.",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "node server.js"
+  }
+}
