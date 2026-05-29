@@ -57,10 +57,11 @@ export default class Player {
   }
 
   update() {
-    const movingLeft = this.cursors.left.isDown;
-    const movingRight = this.cursors.right.isDown;
-    const movingUp = this.cursors.up.isDown;
-    const movingDown = this.cursors.down.isDown;
+    const touchInput = window.CIDADE_TOUCH_INPUT;
+    const movingLeft = this.cursors.left.isDown || touchInput?.left;
+    const movingRight = this.cursors.right.isDown || touchInput?.right;
+    const movingUp = this.cursors.up.isDown || touchInput?.up;
+    const movingDown = this.cursors.down.isDown || touchInput?.down;
     const direction = new Phaser.Math.Vector2(0, 0);
 
     if (movingLeft && !movingRight) {

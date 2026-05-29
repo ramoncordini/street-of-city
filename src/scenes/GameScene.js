@@ -219,7 +219,9 @@ export default class GameScene extends Phaser.Scene {
       }
     }
 
-    if (remotePlayer && Phaser.Input.Keyboard.JustDown(this.interactWithPlayerKey)) {
+    const mobileActionPressed = window.CIDADE_TOUCH_INPUT?.consumeAction();
+
+    if (remotePlayer && (Phaser.Input.Keyboard.JustDown(this.interactWithPlayerKey) || mobileActionPressed)) {
       const text = 'Ola!';
       this.player.showMessage(text);
       remotePlayer.showMessage(`${this.profile.name}: ${text}`);

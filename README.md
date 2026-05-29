@@ -34,9 +34,11 @@ O projeto usa Phaser 3 via CDN no `index.html`, entao nao precisa de build ou Ty
 - Seta direita: andar para a direita
 - Seta cima: andar para cima dentro da estrada
 - Seta baixo: andar para baixo dentro da estrada
+- Mobile: use os botoes direcionais na tela
 - Encostar no nivel da porta de uma construcao: interagir
 - Espaco perto de outro jogador: cumprimentar
-- Esc ou botao Fechar: fechar modal
+- Mobile: botao `A` perto de outro jogador para cumprimentar
+- Esc, Espaco ou botao Fechar: fechar modal
 
 ## Onde alterar
 

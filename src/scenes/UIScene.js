@@ -73,10 +73,12 @@ export default class UIScene extends Phaser.Scene {
       fontSize: '20px',
       color: '#ffffff',
       fontStyle: 'bold'
-    }).setOrigin(0.5).setScrollFactor(0).setDepth(53);
+    }).setOrigin(0.5).setScrollFactor(0).setDepth(53).setInteractive({ useHandCursor: true });
 
     this.closeButton.on('pointerdown', () => this.closeLocationModal());
+    this.closeButtonText.on('pointerdown', () => this.closeLocationModal());
     this.input.keyboard.on('keydown-ESC', () => this.closeLocationModal());
+    this.input.keyboard.on('keydown-SPACE', () => this.closeLocationModal());
 
     this.modalElements = [
       this.modalOverlay,

@@ -7,22 +7,30 @@
     <link rel="stylesheet" href="./src/styles/game.css" />
   </head>
   <body>
-    <main class="game-shell">
-      <header class="game-header" aria-label="Informacoes do jogo">
-        <div>
-          <h1>Cidade 2D Explorer</h1>
-          <p>Explore uma cidade turistica brasileira em pixel art.</p>
-        </div>
-        <div class="controls-hint">
-          <span>Setas: mover</span>
-          <span>Porta: interagir</span>
-          <span>Espaco: cumprimentar</span>
-        </div>
-      </header>
+    <main class="game-shell" aria-label="Cidade 2D Explorer">
+      <div id="game-container"></div>
 
-      <section class="game-stage" aria-label="Area do jogo">
-        <div id="game-container"></div>
-      </section>
+      <div class="game-topbar" aria-label="Controles">
+        <strong>Cidade 2D Explorer</strong>
+        <span>Setas: mover</span>
+        <span>Porta: interagir</span>
+        <span>Espaco: cumprimentar/fechar</span>
+      </div>
+
+      <div class="mobile-controls" aria-label="Controles mobile">
+        <div class="mobile-pad" aria-label="Movimento">
+          <button class="pad-button pad-up" type="button" data-direction="up" aria-label="Mover para cima">▲</button>
+          <button class="pad-button pad-left" type="button" data-direction="left" aria-label="Mover para esquerda">◀</button>
+          <button class="pad-button pad-right" type="button" data-direction="right" aria-label="Mover para direita">▶</button>
+          <button class="pad-button pad-down" type="button" data-direction="down" aria-label="Mover para baixo">▼</button>
+        </div>
+        <button id="mobile-action" class="mobile-action" type="button" aria-label="Cumprimentar">A</button>
+      </div>
+
+      <div class="rotate-device" aria-label="Gire o dispositivo">
+        <strong>Gire o celular</strong>
+        <span>Use o jogo em tela deitada para jogar melhor.</span>
+      </div>
     </main>
 
     <section id="character-screen" class="character-screen" aria-label="Criacao de personagem">

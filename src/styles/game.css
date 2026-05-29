@@ -1,10 +1,10 @@
 :root {
   color-scheme: light;
-  --page-bg: #f2ead3;
   --ink: #243b35;
-  --muted: #60756f;
   --panel: #fffaf0;
   --accent: #2a9d8f;
+  --bar-bg: rgba(18, 30, 28, 0.78);
+  --bar-border: rgba(255, 255, 255, 0.2);
 }
 
 * {
@@ -13,62 +13,166 @@
 
 html,
 body {
-  min-height: 100%;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
 }
 
 body {
   margin: 0;
   font-family: Arial, Helvetica, sans-serif;
   color: var(--ink);
-  background:
-    linear-gradient(180deg, rgba(126, 200, 227, 0.36), rgba(242, 234, 211, 0.92)),
-    var(--page-bg);
+  background: #17202a;
+  touch-action: none;
+  user-select: none;
 }
 
 .game-shell {
-  width: min(1120px, calc(100vw - 32px));
-  margin: 0 auto;
-  padding: 24px 0;
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  background: #7ec8e3;
 }
 
-.game-header {
+#game-container {
+  position: absolute;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+}
+
+#game-container canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+  image-rendering: pixelated;
+}
+
+.game-topbar {
+  position: fixed;
+  top: env(safe-area-inset-top, 0);
+  left: 0;
+  right: 0;
+  z-index: 20;
   display: flex;
-  align-items: end;
-  justify-content: space-between;
-  gap: 20px;
-  margin-bottom: 14px;
+  align-items: center;
+  gap: 12px;
+  min-height: 44px;
+  padding: 8px max(14px, env(safe-area-inset-left)) 8px max(14px, env(safe-area-inset-left));
+  border-bottom: 1px solid var(--bar-border);
+  background: var(--bar-bg);
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 700;
+  backdrop-filter: blur(8px);
 }
 
-.game-header h1 {
-  margin: 0;
-  font-size: clamp(28px, 4vw, 44px);
-  line-height: 1;
-  letter-spacing: 0;
-}
-
-.game-header p {
-  margin: 8px 0 0;
-  color: var(--muted);
+.game-topbar strong {
+  margin-right: auto;
   font-size: 16px;
 }
 
-.controls-hint {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  justify-content: flex-end;
+.game-topbar span {
+  white-space: nowrap;
 }
 
-.controls-hint span {
-  display: inline-flex;
-  align-items: center;
-  min-height: 34px;
-  padding: 0 12px;
-  border: 2px solid #29524a;
-  background: var(--panel);
-  color: #29524a;
-  font-size: 14px;
-  font-weight: 700;
+.mobile-controls {
+  position: fixed;
+  inset: auto 0 max(18px, env(safe-area-inset-bottom)) 0;
+  z-index: 25;
+  display: none;
+  align-items: end;
+  justify-content: space-between;
+  padding: 0 max(20px, env(safe-area-inset-right)) 0 max(20px, env(safe-area-inset-left));
+  pointer-events: none;
+}
+
+.mobile-pad {
+  position: relative;
+  width: 148px;
+  height: 148px;
+  pointer-events: auto;
+}
+
+.pad-button,
+.mobile-action {
+  border: 3px solid rgba(255, 255, 255, 0.86);
+  background: rgba(36, 59, 53, 0.76);
+  color: #ffffff;
+  font: inherit;
+  font-weight: 800;
+  box-shadow: 0 6px 0 rgba(0, 0, 0, 0.18);
+  touch-action: none;
+}
+
+.pad-button {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  border-radius: 10px;
+  font-size: 20px;
+}
+
+.pad-button.is-active,
+.mobile-action.is-active {
+  transform: translateY(3px);
+  box-shadow: 0 3px 0 rgba(0, 0, 0, 0.18);
+  background: rgba(42, 157, 143, 0.86);
+}
+
+.pad-up {
+  top: 0;
+  left: 49px;
+}
+
+.pad-left {
+  top: 49px;
+  left: 0;
+}
+
+.pad-right {
+  top: 49px;
+  right: 0;
+}
+
+.pad-down {
+  bottom: 0;
+  left: 49px;
+}
+
+.mobile-action {
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  font-size: 26px;
+  pointer-events: auto;
+}
+
+.rotate-device {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: none;
+  place-items: center;
+  padding: 24px;
+  background: #17202a;
+  color: #ffffff;
+  text-align: center;
+}
+
+.rotate-device strong,
+.rotate-device span {
+  display: block;
+}
+
+.rotate-device strong {
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+.rotate-device span {
+  max-width: 260px;
+  line-height: 1.35;
 }
 
 .character-screen {
@@ -77,8 +181,8 @@ body {
   z-index: 100;
   display: grid;
   place-items: center;
-  padding: 20px;
-  background: rgba(36, 59, 53, 0.72);
+  padding: max(18px, env(safe-area-inset-top)) max(18px, env(safe-area-inset-right)) max(18px, env(safe-area-inset-bottom)) max(18px, env(safe-area-inset-left));
+  background: rgba(36, 59, 53, 0.82);
 }
 
 .character-screen.is-hidden {
@@ -87,6 +191,8 @@ body {
 
 .character-card {
   width: min(380px, 100%);
+  max-height: calc(100vh - 36px);
+  overflow: auto;
   padding: 24px;
   border: 4px solid #29524a;
   background: var(--panel);
@@ -116,22 +222,19 @@ body {
   font: inherit;
 }
 
-.color-grid {
-  display: flex;
-  gap: 12px;
-}
-
 .choice-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 10px;
 }
 
-.choice-row label {
+.choice-row label,
+.color-grid label {
   margin: 0;
 }
 
-.choice-row input {
+.choice-row input,
+.color-grid input {
   position: absolute;
   opacity: 0;
 }
@@ -151,13 +254,9 @@ body {
   background: #f6d365;
 }
 
-.color-grid label {
-  margin: 0;
-}
-
-.color-grid input {
-  position: absolute;
-  opacity: 0;
+.color-grid {
+  display: flex;
+  gap: 12px;
 }
 
 .color-grid span {
@@ -185,37 +284,61 @@ body {
   cursor: pointer;
 }
 
-.game-stage {
-  border: 4px solid #29524a;
-  background: #7ec8e3;
-  box-shadow: 0 18px 0 rgba(41, 82, 74, 0.12);
-  overflow: hidden;
-}
-
-#game-container {
-  width: 100%;
-  aspect-ratio: 16 / 9;
-}
-
-#game-container canvas {
-  display: block;
-  width: 100%;
-  height: 100%;
-  image-rendering: pixelated;
-}
-
-@media (max-width: 720px) {
-  .game-shell {
-    width: min(100vw - 18px, 1120px);
-    padding-top: 12px;
+@media (hover: none), (pointer: coarse) {
+  .mobile-controls {
+    display: flex;
   }
 
-  .game-header {
-    align-items: flex-start;
-    flex-direction: column;
+  .game-topbar {
+    gap: 8px;
+    min-height: 38px;
+    font-size: 12px;
   }
 
-  .controls-hint {
-    justify-content: flex-start;
+  .game-topbar strong {
+    font-size: 13px;
+  }
+
+  .game-topbar span:nth-of-type(1) {
+    display: none;
+  }
+}
+
+@media (orientation: portrait) and (hover: none), (orientation: portrait) and (pointer: coarse) {
+  .rotate-device {
+    display: grid;
+  }
+}
+
+@media (max-height: 430px) {
+  .game-topbar {
+    min-height: 34px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+  }
+
+  .mobile-pad {
+    width: 126px;
+    height: 126px;
+  }
+
+  .pad-button {
+    width: 44px;
+    height: 44px;
+  }
+
+  .pad-up,
+  .pad-down {
+    left: 41px;
+  }
+
+  .pad-left,
+  .pad-right {
+    top: 41px;
+  }
+
+  .mobile-action {
+    width: 66px;
+    height: 66px;
   }
 }
